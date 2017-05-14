@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -35,6 +36,7 @@ public class HomeActivity extends AppCompatActivity
     private RelativeLayout itemInfo;
     private DrawerLayout drawer;
     private ListView listViewDrawer;
+    private TextView txtNothing;
     private ViewPager viewPager;
     private SmartTabLayout smartTabLayout;
     //adapter
@@ -77,8 +79,13 @@ public class HomeActivity extends AppCompatActivity
         listViewDrawer = (ListView) findViewById(R.id.list_item_follow);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         smartTabLayout = (SmartTabLayout) findViewById(R.id.view_pager_tab);
+        txtNothing = (TextView) findViewById(R.id.txt_nothing);
         //
         dbContext = DBContext.getInst();
+    }
+
+    public void checkHasData(int visible) {
+        txtNothing.setVisibility(visible);
     }
 
     private void addListener() {
@@ -92,6 +99,12 @@ public class HomeActivity extends AppCompatActivity
             itemDrawerAdapter = new ListItemDrawerAdapter(followDrawerModelList, this);
             //
             listViewDrawer.setAdapter(itemDrawerAdapter);
+            //
+            if (followDrawerModelList.size() != 0) {
+                checkHasData(View.GONE);
+            } else {
+                checkHasData(View.VISIBLE);
+            }
         }
     }
 

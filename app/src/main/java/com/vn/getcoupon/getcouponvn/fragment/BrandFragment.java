@@ -150,5 +150,10 @@ public class BrandFragment extends Fragment implements OnItemFollowClicked {
         }
         apdater.notifyDataSetChanged();
         homeActivity.itemDrawerAdapter.notifyDataSetChanged();
+        if (listFollow.size() == 0) {
+            homeActivity.checkHasData(View.VISIBLE);
+        } else {
+            homeActivity.checkHasData(View.GONE);
+        }
     }
 }
