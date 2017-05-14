@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.vn.getcoupon.getcouponvn.R;
+import com.vn.getcoupon.getcouponvn.intef.OnItemFollowClicked;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONStoreItem;
 
 import java.util.ArrayList;
@@ -23,18 +24,26 @@ import java.util.List;
 public class ListStoreApdater extends RecyclerView.Adapter<ListStoreApdater.ViewHolder> {
 
     private List<JSONStoreItem> list;
+    private List<String> listFollow;
     private LayoutInflater inflater;
     private Context context;
     private JSONStoreItem model;
+    private OnItemFollowClicked listener;
 
-    public ListStoreApdater(Context context, List<JSONStoreItem> list) {
+    public ListStoreApdater(Context context, List<JSONStoreItem> list, List<String> listFollow, OnItemFollowClicked listener) {
         if (list != null) {
             this.list = list;
         } else {
             this.list = new ArrayList<>();
         }
+        if (listFollow != null) {
+            this.listFollow = listFollow;
+        } else {
+            this.listFollow = new ArrayList<>();
+        }
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+        this.listener = listener;
     }
 
     @Override
@@ -50,6 +59,16 @@ public class ListStoreApdater extends RecyclerView.Adapter<ListStoreApdater.View
             if (model != null) {
                 Glide.with(context).load(model.getLogoUrl()).into(holder.imvLogo);
                 holder.txtName.setText(model.getName());
+                holder.position = position;
+                if (!listFollow.contains(model.getId())) {
+                    holder.imvFollow.setRotation(0.0f);
+                    holder.imvFollow.setColorFilter(context.getResources().getColor(R.color.teal_primary));
+                    holder.txtFollow.setText("Theo dõi");
+                } else {
+                    holder.imvFollow.setRotation(45.0f);
+                    holder.imvFollow.setColorFilter(context.getResources().getColor(R.color.red_primary));
+                    holder.txtFollow.setText("Bỏ theo dõi");
+                }
             }
         }
     }
@@ -62,14 +81,19 @@ public class ListStoreApdater extends RecyclerView.Adapter<ListStoreApdater.View
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView imvLogo;
+        private ImageView imvFollow;
         private TextView txtName;
+        private TextView txtFollow;
         private LinearLayout itemFollow;
+        private int position;
 
         public ViewHolder(View itemView) {
             super(itemView);
             //view
             imvLogo = (ImageView) itemView.findViewById(R.id.imv_logo);
+            imvFollow = (ImageView) itemView.findViewById(R.id.imv_follow);
             txtName = (TextView) itemView.findViewById(R.id.txt_store_name);
+            txtFollow = (TextView) itemView.findViewById(R.id.txt_follow);
             itemFollow = (LinearLayout) itemView.findViewById(R.id.item_follow);
             //
             itemFollow.setOnClickListener(this);
@@ -79,7 +103,7 @@ public class ListStoreApdater extends RecyclerView.Adapter<ListStoreApdater.View
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.item_follow:
-
+                    listener.onItemFollowClicked(position);
                     break;
                 default:
                     break;
@@ -88,8 +112,7 @@ public class ListStoreApdater extends RecyclerView.Adapter<ListStoreApdater.View
     }
 
     public void swap(List<JSONStoreItem> list) {
-        this.list.clear();
-        this.list.addAll(list);
+        this.list = list;
         this.notifyDataSetChanged();
     }
 }

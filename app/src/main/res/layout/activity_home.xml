@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:id="@+id/left_drawer"
         android:layout_gravity="start"
-        android:background="@color/backround_color"
+        android:background="@color/white"
         android:layout_marginTop="?attr/actionBarSize"
         >
         <ImageView
@@ -99,7 +99,7 @@
             android:layout_below="@id/item_follow"
             android:layout_above="@id/item_info"
             android:id="@+id/list_item_follow"
-            android:layout_marginLeft="@dimen/_30sdp"
+            android:paddingLeft="@dimen/_30sdp"
             android:scrollbars="none"
             />
     </RelativeLayout>

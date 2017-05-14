@@ -14,9 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vn.getcoupon.getcouponvn.R;
+import com.vn.getcoupon.getcouponvn.activity.HomeActivity;
 import com.vn.getcoupon.getcouponvn.adapter.ListStoreApdater;
+import com.vn.getcoupon.getcouponvn.database.DBContext;
+import com.vn.getcoupon.getcouponvn.intef.OnItemFollowClicked;
+import com.vn.getcoupon.getcouponvn.model.FollowListModel;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONStoreItem;
-import com.vn.getcoupon.getcouponvn.model.json_model.JSONStoreList;
 import com.vn.getcoupon.getcouponvn.network.GetService;
 import com.vn.getcoupon.getcouponvn.network.ServiceFactory;
 import com.vn.getcoupon.getcouponvn.utilities.Constant;
@@ -32,7 +35,7 @@ import retrofit2.Response;
  * Created by linhdq on 4/22/17.
  */
 
-public class BrandFragment extends Fragment {
+public class BrandFragment extends Fragment implements OnItemFollowClicked {
     //view
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -42,8 +45,14 @@ public class BrandFragment extends Fragment {
     private ListStoreApdater apdater;
     //
     private List<JSONStoreItem> list;
+    private List<String> listFollow;
+    private JSONStoreItem jsonStoreItem;
     //
     private GetService getService;
+    //
+    private DBContext dbContext;
+    //
+    private HomeActivity homeActivity;
 
     @Nullable
     @Override
@@ -51,6 +60,7 @@ public class BrandFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_brand, container, false);
 
         init(view);
+        setupRecyclerView();
 
         return view;
     }
@@ -59,9 +69,12 @@ public class BrandFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //
-        setupRecyclerView();
-        //
-        if (list.size() == 0) {
+        if (listFollow == null || listFollow.size() == 0) {
+            listFollow.clear();
+            listFollow.addAll(dbContext.getAllFollowItem());
+            apdater.notifyDataSetChanged();
+        }
+        if (list == null || list.size() == 0) {
             getListStore();
         }
     }
@@ -75,12 +88,17 @@ public class BrandFragment extends Fragment {
         getService = ServiceFactory.getInstance().createService(GetService.class);
         //
         context = view.getContext();
-        list = new ArrayList<>();
+        //
+        dbContext = DBContext.getInst();
+        //
+        homeActivity = (HomeActivity) getActivity();
     }
 
     private void setupRecyclerView() {
+        list = new ArrayList<>();
+        listFollow = new ArrayList<>();
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        apdater = new ListStoreApdater(context, list);
+        apdater = new ListStoreApdater(context, list, listFollow, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(apdater);
     }
@@ -91,34 +109,46 @@ public class BrandFragment extends Fragment {
         txtError.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         //
-        Call<JSONStoreList> call = getService.callJsonListStore();
-        call.enqueue(new Callback<JSONStoreList>() {
+        Call<List<JSONStoreItem>> call = getService.callJsonListStore();
+        call.enqueue(new Callback<List<JSONStoreItem>>() {
             @Override
-            public void onResponse(Call<JSONStoreList> call, Response<JSONStoreList> response) {
+            public void onResponse(Call<List<JSONStoreItem>> call, Response<List<JSONStoreItem>> response) {
                 if (response.code() == Constant.OK_STATUS) {
-                    Log.d("hello", "onResponse: ok");
-                    JSONStoreList jsonStoreList = response.body();
-                    List<JSONStoreItem> storeItemList = jsonStoreList.getStoreItemList();
-                    if (storeItemList != null && storeItemList.size() != 0) {
+                    List<JSONStoreItem> jsonStoreList = response.body();
+                    if (jsonStoreList != null && jsonStoreList.size() != 0) {
                         list.clear();
-                        list.addAll(storeItemList);
+                        list.addAll(jsonStoreList);
                         apdater.notifyDataSetChanged();
                         recyclerView.setVisibility(View.VISIBLE);
+                        Log.d("hello", "onResponse: " + list.size());
                     }
                 } else {
                     txtError.setVisibility(View.VISIBLE);
-                    Log.d("hello", "onResponse: fail "+response.code());
                 }
                 //hide progress bar
                 progressBar.setVisibility(View.GONE);
             }
 
             @Override
-            public void onFailure(Call<JSONStoreList> call, Throwable t) {
+            public void onFailure(Call<List<JSONStoreItem>> call, Throwable t) {
                 txtError.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
-                Log.d("hello", "onResponse: fail");
+                t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void onItemFollowClicked(int position) {
+        jsonStoreItem = list.get(position);
+        if (listFollow.contains(jsonStoreItem.getId())) {
+            dbContext.deleteFollowModel(jsonStoreItem.getId());
+            listFollow.remove(listFollow.indexOf(jsonStoreItem.getId()));
+        } else {
+            dbContext.addFollowStore(FollowListModel.create(jsonStoreItem.getId(), jsonStoreItem.getName(), jsonStoreItem.getLogoUrl()));
+            listFollow.add(jsonStoreItem.getId());
+        }
+        apdater.notifyDataSetChanged();
+        homeActivity.itemDrawerAdapter.notifyDataSetChanged();
     }
 }

@@ -19,9 +19,11 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.vn.getcoupon.getcouponvn.R;
 import com.vn.getcoupon.getcouponvn.adapter.ListItemDrawerAdapter;
+import com.vn.getcoupon.getcouponvn.database.DBContext;
 import com.vn.getcoupon.getcouponvn.fragment.BrandFragment;
 import com.vn.getcoupon.getcouponvn.fragment.CategoryFragment;
 import com.vn.getcoupon.getcouponvn.fragment.SaleCodeFragment;
+import com.vn.getcoupon.getcouponvn.model.FollowListModel;
 import com.vn.getcoupon.getcouponvn.model.ItemFollowDrawerModel;
 
 import java.util.ArrayList;
@@ -36,10 +38,12 @@ public class HomeActivity extends AppCompatActivity
     private ViewPager viewPager;
     private SmartTabLayout smartTabLayout;
     //adapter
-    private ListItemDrawerAdapter itemDrawerAdapter;
+    public ListItemDrawerAdapter itemDrawerAdapter;
     private FragmentPagerItemAdapter adapter;
     //
-    private List<ItemFollowDrawerModel> followDrawerModelList;
+    private List<FollowListModel> followDrawerModelList;
+    //
+    private DBContext dbContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,8 @@ public class HomeActivity extends AppCompatActivity
         listViewDrawer = (ListView) findViewById(R.id.list_item_follow);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         smartTabLayout = (SmartTabLayout) findViewById(R.id.view_pager_tab);
+        //
+        dbContext = DBContext.getInst();
     }
 
     private void addListener() {
@@ -81,10 +87,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void fillDataToDrawerList() {
         if (itemDrawerAdapter == null) {
-            followDrawerModelList = new ArrayList<>();
-            followDrawerModelList.add(new ItemFollowDrawerModel(R.mipmap.adayroi, "Adayroi"));
-            followDrawerModelList.add(new ItemFollowDrawerModel(R.mipmap.tiki, "Tiki"));
-            followDrawerModelList.add(new ItemFollowDrawerModel(R.mipmap.lazada, "Lazada"));
+            followDrawerModelList = dbContext.getAllFollowModel();
             //
             itemDrawerAdapter = new ListItemDrawerAdapter(followDrawerModelList, this);
             //
@@ -102,6 +105,7 @@ public class HomeActivity extends AppCompatActivity
                     .create());
             viewPager.setAdapter(adapter);
             smartTabLayout.setViewPager(viewPager);
+            viewPager.setOffscreenPageLimit(3);
         }
     }
 

@@ -21,5 +21,5 @@
         android:text="Adayroi"
         android:textColor="@color/teal_primary_dark"
         android:textSize="@dimen/_13sdp"
-        android:textStyle="bold" />
+        />
 </LinearLayout>

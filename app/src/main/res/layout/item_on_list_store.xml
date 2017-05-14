@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_70sdp"
+    android:layout_height="@dimen/_80sdp"
     android:layout_marginBottom="@dimen/_5sdp"
     android:background="@color/white"
     android:padding="@dimen/_5sdp">
@@ -20,39 +20,47 @@
         android:layout_toRightOf="@id/imv_logo"
         android:background="@color/grey_300" />
 
-    <TextView
-        android:id="@+id/txt_store_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_toRightOf="@id/view_"
-        android:text="Lazada"
-        android:textColor="@color/teal_primary"
-        android:textSize="@dimen/_14sdp" />
-
     <LinearLayout
         android:id="@+id/item_follow"
-        android:layout_width="@dimen/_50sdp"
+        android:layout_width="@dimen/_60sdp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="@dimen/_50sdp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_alignParentRight="true"
             android:src="@mipmap/ic_add"
-            android:tint="@color/teal_primary" />
+            android:tint="@color/teal_primary"
+            android:id="@+id/imv_follow"
+            />
 
         <TextView
-            android:layout_width="@dimen/_50sdp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:gravity="center_horizontal"
-            android:text="Theo dõi"
+            android:text="Bỏ theo dõi"
             android:textColor="@color/grey_600"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="@dimen/_9sdp"
+            android:id="@+id/txt_follow"
+            />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_store_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:layout_toLeftOf="@id/item_follow"
+        android:layout_toRightOf="@id/view_"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Lazada"
+        android:textColor="@color/teal_primary"
+        android:textSize="@dimen/_14sdp" />
 </RelativeLayout>
