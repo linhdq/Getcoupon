@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_70sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
+    android:background="@color/white"
+    android:padding="@dimen/_5sdp">
+
+    <ImageView
+        android:id="@+id/imv_logo"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="match_parent"
+        android:src="@mipmap/lazada" />
+
+    <View
+        android:id="@+id/view_"
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_toRightOf="@id/imv_logo"
+        android:background="@color/grey_300" />
+
+    <TextView
+        android:id="@+id/txt_store_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_toRightOf="@id/view_"
+        android:text="Lazada"
+        android:textColor="@color/teal_primary"
+        android:textSize="@dimen/_14sdp" />
+
+    <LinearLayout
+        android:id="@+id/item_follow"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_add"
+            android:tint="@color/teal_primary" />
+
+        <TextView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal"
+            android:text="Theo dõi"
+            android:textColor="@color/grey_600"
+            android:textSize="@dimen/_10sdp" />
+    </LinearLayout>
+</RelativeLayout>
