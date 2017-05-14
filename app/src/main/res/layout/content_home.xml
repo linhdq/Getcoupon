@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.vn.getcoupon.getcouponvn.activity.HomeActivity"
+    tools:showIn="@layout/app_bar_home">
+
+    <com.ogaclejapan.smarttablayout.SmartTabLayout
+        android:id="@+id/view_pager_tab"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:stl_clickable="true"
+        app:stl_defaultTabBackground="?attr/selectableItemBackground"
+        app:stl_defaultTabTextAllCaps="true"
+        app:stl_defaultTabTextColor="#ffffff"
+        app:stl_defaultTabTextHorizontalPadding="16dp"
+        app:stl_defaultTabTextMinWidth="0dp"
+        app:stl_defaultTabTextSize="13sp"
+        app:stl_distributeEvenly="true"
+        app:stl_dividerColor="#9E9E9E"
+        app:stl_dividerThickness="1dp"
+        app:stl_indicatorAlwaysInCenter="false"
+        app:stl_indicatorColor="@color/red_primary"
+        app:stl_indicatorCornerRadius="2dp"
+        app:stl_indicatorInFront="false"
+        app:stl_indicatorThickness="4dp"
+        app:stl_indicatorWithoutPadding="false"
+        app:stl_titleOffset="24dp"
+        android:background="@color/colorPrimary"
+        />
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/view_pager_tab"
+        android:id="@+id/view_pager"
+        />
+
+</RelativeLayout>
