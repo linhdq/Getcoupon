@@ -11,40 +11,40 @@ import com.vn.getcoupon.getcouponvn.R;
  */
 
 public class CategoriesUtils {
-    public static Drawable getIconById(Context context, String categoryId){
+    public static int getResourceById(Context context, String categoryId){
         switch (Integer.parseInt(categoryId)){
             case 51:
-                return ContextCompat.getDrawable(context, R.drawable.ic_hot_coupon);
+                return R.mipmap.ic_discount;
             case 38:
-                return ContextCompat.getDrawable(context, R.drawable.ic_education);
+                return R.mipmap.ic_mortarboard;
             case 36:
-                return ContextCompat.getDrawable(context, R.drawable.ic_beauty);
+                return R.mipmap.ic_hair_dryer;
             case 35:
-                return ContextCompat.getDrawable(context, R.drawable.ic_notebook);
+                return R.mipmap.ic_notebook;
             case 33:
-                return ContextCompat.getDrawable(context, R.drawable.ic_travel);
+                return R.mipmap.ic_beach;
             case 32:
-                return ContextCompat.getDrawable(context, R.drawable.ic_tools);
+                return R.mipmap.ic_tools;
             case 29:
-                return ContextCompat.getDrawable(context, R.drawable.ic_hi_tech);
+                return R.mipmap.ic_desktop;
             case 44:
-                return ContextCompat.getDrawable(context, R.drawable.ic_money_bag);
+                return R.mipmap.ic_money_bag;
             case 45:
-                return ContextCompat.getDrawable(context, R.drawable.ic_meal);
+                return R.mipmap.ic_restaurant;
             case 46:
-                return ContextCompat.getDrawable(context, R.drawable.ic_sport);
+                return R.mipmap.ic_football;
             case 31:
-                return ContextCompat.getDrawable(context, R.drawable.ic_refrigerator);
+                return R.mipmap.ic_refrigerator;
             case 37:
-                return ContextCompat.getDrawable(context, R.drawable.ic_fashion);
+                return R.mipmap.ic_shirt;
             case 34:
-                return ContextCompat.getDrawable(context, R.drawable.ic_mom_and_baby);
+                return R.mipmap.ic_newborn;
             case 106:
-                return ContextCompat.getDrawable(context, R.drawable.ic_pencil);
+                return R.mipmap.ic_pencil;
             case 220:
-                return ContextCompat.getDrawable(context, R.drawable.ic_transport);
+                return R.mipmap.ic_delivery_truck;
             default:
-                return null;
+                return 0;
         }
     }
 }
