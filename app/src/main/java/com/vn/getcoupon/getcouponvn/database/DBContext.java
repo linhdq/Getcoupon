@@ -3,6 +3,7 @@ package com.vn.getcoupon.getcouponvn.database;
 import com.vn.getcoupon.getcouponvn.model.CategoryModel;
 import com.vn.getcoupon.getcouponvn.model.FollowCategoryListModel;
 import com.vn.getcoupon.getcouponvn.model.FollowListModel;
+import com.vn.getcoupon.getcouponvn.model.json_model.JSONCouponItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,5 +68,17 @@ public class DBContext {
     public List<CategoryModel> getAllCategory() {
         realm = Realm.getDefaultInstance();
         return realm.where(CategoryModel.class).findAll();
+    }
+
+    public void addCoupon(List<JSONCouponItem> list) {
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.copyToRealm(list);
+        realm.commitTransaction();
+    }
+
+    public List<JSONCouponItem> getAllCoupons() {
+        realm = Realm.getDefaultInstance();
+        return realm.where(JSONCouponItem.class).findAll();
     }
 }
