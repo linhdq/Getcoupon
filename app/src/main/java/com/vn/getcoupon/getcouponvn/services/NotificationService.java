@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
@@ -82,7 +83,8 @@ public class NotificationService extends Service implements OnNetworkChangeRecei
 
         // Notification build
         builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.logo)
+                .setSmallIcon(R.mipmap.ic_discount)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.logo))
                 .setContentTitle("New Coupon")
                 .setContentText("Co Coupon moi, vao app de check")
                 .setVibrate(new long[] {1000,1000})
