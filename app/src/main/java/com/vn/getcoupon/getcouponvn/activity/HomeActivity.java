@@ -27,6 +27,7 @@ import com.vn.getcoupon.getcouponvn.fragment.CategoryFragment;
 import com.vn.getcoupon.getcouponvn.fragment.SaleCodeFragment;
 import com.vn.getcoupon.getcouponvn.model.FollowListModel;
 import com.vn.getcoupon.getcouponvn.utilities.Constant;
+import com.vn.getcoupon.getcouponvn.services.NotificationService;
 
 import java.util.List;
 
@@ -46,6 +47,9 @@ public class HomeActivity extends AppCompatActivity
     private List<FollowListModel> followDrawerModelList;
     //
     private DBContext dbContext;
+
+    // Service
+    private Intent intentService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,10 @@ public class HomeActivity extends AppCompatActivity
         txtNothing = (TextView) findViewById(R.id.txt_nothing);
         //
         dbContext = DBContext.getInst();
+
+        // Notification Service
+        intentService = new Intent(this, NotificationService.class);
+        startService(intentService);
     }
 
     public void checkHasData(int visible) {
@@ -139,7 +147,6 @@ public class HomeActivity extends AppCompatActivity
             viewPager.setAdapter(adapter);
             smartTabLayout.setViewPager(viewPager);
             viewPager.setOffscreenPageLimit(3);
-            viewPager.setCurrentItem(2);
         }
     }
 
