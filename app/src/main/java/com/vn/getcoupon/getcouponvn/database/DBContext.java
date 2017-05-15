@@ -5,6 +5,7 @@ import com.vn.getcoupon.getcouponvn.model.FollowCategoryListModel;
 import com.vn.getcoupon.getcouponvn.model.FollowListModel;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONCouponItem;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONStoreItem;
+import com.vn.getcoupon.getcouponvn.utilities.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,9 @@ public class DBContext {
     public void addCoupon(List<JSONCouponItem> list) {
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
+        for (JSONCouponItem item : list) {
+            item.setUnAccentTitle(StringUtils.unAccent(item.getTitle().toLowerCase()));
+        }
         realm.copyToRealm(list);
         realm.commitTransaction();
     }
@@ -94,8 +98,14 @@ public class DBContext {
         realm = Realm.getDefaultInstance();
         return realm.where(JSONCouponItem.class).equalTo("storeId", id).findAll();
     }
+
     public List<JSONCouponItem> getCouponsByCategoryId(String id) {
         realm = Realm.getDefaultInstance();
         return realm.where(JSONCouponItem.class).equalTo("categoryId", id).findAll();
+    }
+
+    public List<JSONCouponItem> getCouponsSearch(String title) {
+        realm = Realm.getDefaultInstance();
+        return realm.where(JSONCouponItem.class).contains("unAccentTitle", StringUtils.unAccent(title.toLowerCase().trim())).findAll();
     }
 }

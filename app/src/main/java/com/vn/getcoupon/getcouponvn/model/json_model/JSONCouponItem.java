@@ -2,6 +2,7 @@ package com.vn.getcoupon.getcouponvn.model.json_model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.vn.getcoupon.getcouponvn.utilities.StringUtils;
 
 import io.realm.RealmObject;
 
@@ -49,6 +50,8 @@ public class JSONCouponItem extends RealmObject {
     @SerializedName("category_id")
     @Expose
     private String categoryId;
+
+    private String unAccentTitle;
 
     public static JSONCouponItem create(String couponId, String storeId, String storeName, String title, String content, String logoUrl, String couponType, String code, String destinationUrl, String persenSuccess, String used, String expiresDate) {
         JSONCouponItem model = new JSONCouponItem();
@@ -169,5 +172,13 @@ public class JSONCouponItem extends RealmObject {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getUnAccentTitle() {
+        return unAccentTitle;
+    }
+
+    public void setUnAccentTitle(String unAccentTitle) {
+        this.unAccentTitle = unAccentTitle;
     }
 }

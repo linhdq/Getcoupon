@@ -151,4 +151,9 @@ public class ListCouponAdapter extends RecyclerView.Adapter<ListCouponAdapter.Vi
             }
         }
     }
+
+    public void swap(List<JSONCouponItem> list) {
+        this.list = list;
+        this.notifyDataSetChanged();
+    }
 }
