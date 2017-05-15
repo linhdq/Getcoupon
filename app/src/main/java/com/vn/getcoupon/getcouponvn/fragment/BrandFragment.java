@@ -71,7 +71,7 @@ public class BrandFragment extends Fragment implements OnItemFollowClicked {
         //
         if (listFollow == null || listFollow.size() == 0) {
             listFollow.clear();
-            listFollow.addAll(dbContext.getAllFollowItem());
+            listFollow.addAll(dbContext.getAllFollowItem(2));
             apdater.notifyDataSetChanged();
         }
         if (list == null || list.size() == 0) {
@@ -145,7 +145,7 @@ public class BrandFragment extends Fragment implements OnItemFollowClicked {
             dbContext.deleteFollowModel(jsonStoreItem.getId());
             listFollow.remove(listFollow.indexOf(jsonStoreItem.getId()));
         } else {
-            dbContext.addFollowStore(FollowListModel.create(jsonStoreItem.getId(), jsonStoreItem.getName(), jsonStoreItem.getLogoUrl()));
+            dbContext.addFollowItem(FollowListModel.create(jsonStoreItem.getId(), jsonStoreItem.getName(), jsonStoreItem.getLogoUrl(),0,2));
             listFollow.add(jsonStoreItem.getId());
         }
         apdater.notifyDataSetChanged();

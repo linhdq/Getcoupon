@@ -1,9 +1,8 @@
 package com.vn.getcoupon.getcouponvn.database;
 
-import android.util.Log;
-
+import com.vn.getcoupon.getcouponvn.model.CategoryModel;
+import com.vn.getcoupon.getcouponvn.model.FollowCategoryListModel;
 import com.vn.getcoupon.getcouponvn.model.FollowListModel;
-import com.vn.getcoupon.getcouponvn.model.json_model.JSONStoreItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class DBContext {
         return inst;
     }
 
-    public void addFollowStore(FollowListModel model) {
+    public void addFollowItem(FollowListModel model) {
         realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(model);
@@ -44,10 +43,10 @@ public class DBContext {
         realm.commitTransaction();
     }
 
-    public List<String> getAllFollowItem() {
+    public List<String> getAllFollowItem(int type) {
         realm = Realm.getDefaultInstance();
         List<String> list = new ArrayList<>();
-        for (FollowListModel model : realm.where(FollowListModel.class).findAll()) {
+        for (FollowListModel model : realm.where(FollowListModel.class).equalTo("type", type).findAll()) {
             list.add(model.getId());
         }
         return list;
@@ -55,6 +54,18 @@ public class DBContext {
 
     public List<FollowListModel> getAllFollowModel() {
         realm = Realm.getDefaultInstance();
-        return realm.where(FollowListModel.class).findAll();
+        return realm.where(FollowListModel.class).findAllSorted("type");
+    }
+
+    public void addCategory(CategoryModel model) {
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(model);
+        realm.commitTransaction();
+    }
+
+    public List<CategoryModel> getAllCategory() {
+        realm = Realm.getDefaultInstance();
+        return realm.where(CategoryModel.class).findAll();
     }
 }

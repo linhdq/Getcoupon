@@ -8,7 +8,10 @@
         android:id="@+id/imv_icon"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        />
 
     <TextView
         android:id="@+id/txt_title"
@@ -21,5 +24,6 @@
         android:text="Adayroi"
         android:textColor="@color/teal_primary_dark"
         android:textSize="@dimen/_13sdp"
+        android:paddingRight="@dimen/_4sdp"
         />
 </LinearLayout>

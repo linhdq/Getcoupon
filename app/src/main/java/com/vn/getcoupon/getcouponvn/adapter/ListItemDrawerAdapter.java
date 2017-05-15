@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.vn.getcoupon.getcouponvn.R;
 import com.vn.getcoupon.getcouponvn.model.FollowListModel;
-import com.vn.getcoupon.getcouponvn.model.ItemFollowDrawerModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +23,7 @@ public class ListItemDrawerAdapter extends BaseAdapter {
     private List<FollowListModel> list;
     private Context context;
     private LayoutInflater inflater;
+    private FollowListModel model;
 
     public ListItemDrawerAdapter(List<FollowListModel> list, Context context) {
         if (list != null) {
@@ -57,8 +57,15 @@ public class ListItemDrawerAdapter extends BaseAdapter {
             ImageView imageView = (ImageView) view.findViewById(R.id.imv_icon);
             TextView txtTitle = (TextView) view.findViewById(R.id.txt_title);
             if (list.size() > position) {
-                Glide.with(context).load(list.get(position).getLogoUrl()).into(imageView);
-                txtTitle.setText(list.get(position).getName());
+                model=list.get(position);
+                if(model!=null) {
+                    if (model.getType()==2) {
+                        Glide.with(context).load(model.getLogoUrl()).into(imageView);
+                    }else{
+                        Glide.with(context).load(model.getLogoId()).into(imageView);
+                    }
+                    txtTitle.setText(model.getName());
+                }
             }
         }
         return view;

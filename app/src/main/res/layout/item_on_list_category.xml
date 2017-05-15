@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_item"
+    android:background="@color/white"
+    >
+
+    <RelativeLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/item_teal_pressed"
+        android:paddingLeft="@dimen/_4sdp"
+        >
+
+        <ImageView
+            android:id="@+id/imv_add"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/_4sdp"
+            android:src="@mipmap/ic_add"
+            android:tint="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/imv_add"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Sức khoẻ - Làm đẹp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:id="@+id/txt_category_name"
+            />
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/layout_bottom"
+        android:background="@color/white"
+        android:padding="@dimen/_15sdp"
+        android:id="@+id/imv_icon"
+        />
+</RelativeLayout>

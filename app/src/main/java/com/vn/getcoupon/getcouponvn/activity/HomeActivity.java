@@ -25,9 +25,7 @@ import com.vn.getcoupon.getcouponvn.fragment.BrandFragment;
 import com.vn.getcoupon.getcouponvn.fragment.CategoryFragment;
 import com.vn.getcoupon.getcouponvn.fragment.SaleCodeFragment;
 import com.vn.getcoupon.getcouponvn.model.FollowListModel;
-import com.vn.getcoupon.getcouponvn.model.ItemFollowDrawerModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity

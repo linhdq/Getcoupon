@@ -12,12 +12,16 @@ public class FollowListModel extends RealmObject {
     private String id;
     private String name;
     private String logoUrl;
+    private int logoId;
+    private int type;
 
-    public static FollowListModel create(String id, String name, String logoUrl) {
+    public static FollowListModel create(String id, String name, String logoUrl, int logoId, int type) {
         FollowListModel model = new FollowListModel();
         model.id = id;
         model.name = name;
         model.logoUrl = logoUrl;
+        model.logoId = logoId;
+        model.type = type;
         return model;
     }
 
@@ -31,5 +35,13 @@ public class FollowListModel extends RealmObject {
 
     public String getLogoUrl() {
         return logoUrl;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getLogoId() {
+        return logoId;
     }
 }
