@@ -3,6 +3,8 @@
     package="com.vn.getcoupon.getcouponvn">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
     <application
         android:name=".Application"
@@ -29,17 +31,23 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ListCouponsActivity"
-            android:screenOrientation="portrait"
-            >
+        <activity
+            android:name=".activity.ListCouponsActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.HomeActivity" />
         </activity>
+
+        <service
+            android:name=".services.NotificationService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>
