@@ -9,4 +9,6 @@ public class API {
     public static final String ROOT_API = "https://getcoupon.vn";
     public static final String CATEGORIES = "/api/categories/?p=1";
     public static final String LIST_STORE = "/apis/stores/";
+    public static final String GET_COUPONS = "/api/coupons/";
+    public static final String GET_COUPONS_PAGE = "/?p=";
 }
