@@ -33,13 +33,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ListCouponsActivity"
-            android:screenOrientation="portrait"
-            >
+        <activity
+            android:name=".activity.ListCouponsActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.HomeActivity" />
         </activity>
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

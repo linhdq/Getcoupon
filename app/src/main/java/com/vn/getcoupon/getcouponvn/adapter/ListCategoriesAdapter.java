@@ -1,6 +1,7 @@
 package com.vn.getcoupon.getcouponvn.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -14,8 +15,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.vn.getcoupon.getcouponvn.R;
+import com.vn.getcoupon.getcouponvn.activity.ListCouponsActivity;
 import com.vn.getcoupon.getcouponvn.intef.OnItemFollowClicked;
 import com.vn.getcoupon.getcouponvn.model.CategoryModel;
+import com.vn.getcoupon.getcouponvn.utilities.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +109,7 @@ public class ListCategoriesAdapter extends RecyclerView.Adapter<ListCategoriesAd
             layout.setLayoutParams(layoutParams);
             //
             itemFollow.setOnClickListener(this);
+            imvIcon.setOnClickListener(this);
         }
 
         @Override
@@ -113,6 +117,13 @@ public class ListCategoriesAdapter extends RecyclerView.Adapter<ListCategoriesAd
             switch (v.getId()) {
                 case R.id.layout_bottom:
                     listener.onItemFollowClicked(position);
+                    break;
+                case R.id.imv_icon:
+                    Intent intent = new Intent(context, ListCouponsActivity.class);
+                    intent.putExtra(Constant.STORE_NAME, list.get(position).getName());
+                    intent.putExtra(Constant.STORE_ID, list.get(position).getId());
+                    intent.putExtra(Constant.CATEGORY_ID, list.get(position).getId());
+                    context.startActivity(intent);
                     break;
                 default:
                     break;

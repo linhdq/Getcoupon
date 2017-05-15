@@ -4,24 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey_300"
-    tools:context="com.vn.getcoupon.getcouponvn.activity.ListCouponsActivity">
+    android:padding="@dimen/_5sdp"
+    tools:context="com.vn.getcoupon.getcouponvn.activity.SearchActivity">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:background="@drawable/custom_edit_text"
+        android:hint="Tìm kiếm ..."
+        android:textSize="@dimen/_12sdp"
+        android:padding="@dimen/_5sdp"
+        android:maxLines="1"
+        android:inputType="text"
+        android:id="@+id/edt_search"
+        />
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/edt_search"
+        android:layout_marginTop="@dimen/_5sdp"
         android:id="@+id/recycler_view"
-        android:padding="@dimen/_3sdp"
         android:scrollbars="none"
-        android:layoutAnimation="@anim/layout_animation"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Chưa có khuyến mại/giảm giá ở mục này!"
+        android:layout_below="@id/edt_search"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Không có dữ liệu!"
+        android:textSize="@dimen/_11sdp"
         android:textColor="@color/grey_800"
-        android:textSize="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_20sdp"
         android:id="@+id/txt_error"
         android:visibility="gone"
         />

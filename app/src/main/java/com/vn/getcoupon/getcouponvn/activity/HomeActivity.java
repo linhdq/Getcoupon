@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.vn.getcoupon.getcouponvn.fragment.BrandFragment;
 import com.vn.getcoupon.getcouponvn.fragment.CategoryFragment;
 import com.vn.getcoupon.getcouponvn.fragment.SaleCodeFragment;
 import com.vn.getcoupon.getcouponvn.model.FollowListModel;
+import com.vn.getcoupon.getcouponvn.utilities.Constant;
 
 import java.util.List;
 
@@ -62,6 +64,12 @@ public class HomeActivity extends AppCompatActivity
         fillDataToViewPager();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
     private void init() {
         //
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,6 +96,20 @@ public class HomeActivity extends AppCompatActivity
 
     private void addListener() {
         itemInfo.setOnClickListener(this);
+        listViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(HomeActivity.this, ListCouponsActivity.class);
+                intent.putExtra(Constant.STORE_NAME, followDrawerModelList.get(position).getName());
+                intent.putExtra(Constant.STORE_ID, followDrawerModelList.get(position).getId());
+                if (followDrawerModelList.get(position).getType() == 1) {
+                    intent.putExtra(Constant.CATEGORY_ID, followDrawerModelList.get(position).getId());
+                } else {
+                    intent.putExtra(Constant.CATEGORY_ID, "-1");
+                }
+                startActivity(intent);
+            }
+        });
     }
 
     private void fillDataToDrawerList() {
@@ -117,6 +139,7 @@ public class HomeActivity extends AppCompatActivity
             viewPager.setAdapter(adapter);
             smartTabLayout.setViewPager(viewPager);
             viewPager.setOffscreenPageLimit(3);
+            viewPager.setCurrentItem(2);
         }
     }
 
@@ -158,8 +181,6 @@ public class HomeActivity extends AppCompatActivity
             case R.id.item_info:
                 Intent intent = new Intent(HomeActivity.this, AboutActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                drawer.closeDrawer(GravityCompat.START);
                 break;
             default:
                 break;

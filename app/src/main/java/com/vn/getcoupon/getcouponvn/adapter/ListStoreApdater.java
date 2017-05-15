@@ -1,6 +1,7 @@
 package com.vn.getcoupon.getcouponvn.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.vn.getcoupon.getcouponvn.R;
+import com.vn.getcoupon.getcouponvn.activity.HomeActivity;
+import com.vn.getcoupon.getcouponvn.activity.ListCouponsActivity;
 import com.vn.getcoupon.getcouponvn.intef.OnItemFollowClicked;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONStoreItem;
+import com.vn.getcoupon.getcouponvn.utilities.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +101,8 @@ public class ListStoreApdater extends RecyclerView.Adapter<ListStoreApdater.View
             itemFollow = (LinearLayout) itemView.findViewById(R.id.item_follow);
             //
             itemFollow.setOnClickListener(this);
+            txtName.setOnClickListener(this);
+            imvLogo.setOnClickListener(this);
         }
 
         @Override
@@ -105,14 +111,17 @@ public class ListStoreApdater extends RecyclerView.Adapter<ListStoreApdater.View
                 case R.id.item_follow:
                     listener.onItemFollowClicked(position);
                     break;
+                case R.id.imv_logo:
+                case R.id.txt_store_name:
+                    Intent intent = new Intent(context, ListCouponsActivity.class);
+                    intent.putExtra(Constant.STORE_NAME, list.get(position).getName());
+                    intent.putExtra(Constant.STORE_ID, list.get(position).getId());
+                    intent.putExtra(Constant.CATEGORY_ID, "-1");
+                    context.startActivity(intent);
+                    break;
                 default:
                     break;
             }
         }
-    }
-
-    public void swap(List<JSONStoreItem> list) {
-        this.list = list;
-        this.notifyDataSetChanged();
     }
 }

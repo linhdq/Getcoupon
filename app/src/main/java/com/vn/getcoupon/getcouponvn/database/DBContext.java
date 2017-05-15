@@ -4,6 +4,7 @@ import com.vn.getcoupon.getcouponvn.model.CategoryModel;
 import com.vn.getcoupon.getcouponvn.model.FollowCategoryListModel;
 import com.vn.getcoupon.getcouponvn.model.FollowListModel;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONCouponItem;
+import com.vn.getcoupon.getcouponvn.model.json_model.JSONStoreItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +78,24 @@ public class DBContext {
         realm.commitTransaction();
     }
 
+    public void deleteAllCoupons() {
+        realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.delete(JSONCouponItem.class);
+        realm.commitTransaction();
+    }
+
     public List<JSONCouponItem> getAllCoupons() {
         realm = Realm.getDefaultInstance();
         return realm.where(JSONCouponItem.class).findAll();
+    }
+
+    public List<JSONCouponItem> getCouponsByStoreId(String id) {
+        realm = Realm.getDefaultInstance();
+        return realm.where(JSONCouponItem.class).equalTo("storeId", id).findAll();
+    }
+    public List<JSONCouponItem> getCouponsByCategoryId(String id) {
+        realm = Realm.getDefaultInstance();
+        return realm.where(JSONCouponItem.class).equalTo("categoryId", id).findAll();
     }
 }

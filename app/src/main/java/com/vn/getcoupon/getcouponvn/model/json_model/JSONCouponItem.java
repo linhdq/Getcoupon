@@ -46,6 +46,9 @@ public class JSONCouponItem extends RealmObject {
     @SerializedName("expires")
     @Expose
     private String expiresDate;
+    @SerializedName("category_id")
+    @Expose
+    private String categoryId;
 
     public static JSONCouponItem create(String couponId, String storeId, String storeName, String title, String content, String logoUrl, String couponType, String code, String destinationUrl, String persenSuccess, String used, String expiresDate) {
         JSONCouponItem model = new JSONCouponItem();
@@ -158,5 +161,13 @@ public class JSONCouponItem extends RealmObject {
 
     public void setExpiresDate(String expiresDate) {
         this.expiresDate = expiresDate;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }

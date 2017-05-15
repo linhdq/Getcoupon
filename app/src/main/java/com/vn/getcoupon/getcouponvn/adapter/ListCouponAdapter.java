@@ -1,6 +1,7 @@
 package com.vn.getcoupon.getcouponvn.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.vn.getcoupon.getcouponvn.R;
+import com.vn.getcoupon.getcouponvn.activity.ListCouponsActivity;
 import com.vn.getcoupon.getcouponvn.intef.OnItemRecyclerViewClicked;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONCouponItem;
+import com.vn.getcoupon.getcouponvn.utilities.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,33 +114,41 @@ public class ListCouponAdapter extends RecyclerView.Adapter<ListCouponAdapter.Vi
             animation = AnimationUtils.loadAnimation(context, R.anim.zoom_out);
             //
             layoutButton.setOnClickListener(this);
+            imvLogo.setOnClickListener(this);
         }
 
         @Override
         public void onClick(final View v) {
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
+            switch (v.getId()) {
+                case R.id.layout_button:
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
 
-                }
+                        }
 
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    switch (v.getId()) {
-                        case R.id.layout_button:
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
                             listener.onItemRecyclerViewClicked(position);
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                        }
 
-                @Override
-                public void onAnimationRepeat(Animation animation) {
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
 
-                }
-            });
-            v.startAnimation(animation);
+                        }
+                    });
+                    layoutButton.startAnimation(animation);
+                    break;
+                case R.id.imv_logo:
+                    Intent intent = new Intent(context, ListCouponsActivity.class);
+                    intent.putExtra(Constant.STORE_NAME, list.get(position).getStoreName());
+                    intent.putExtra(Constant.STORE_ID, list.get(position).getStoreId());
+                    intent.putExtra(Constant.CATEGORY_ID, "-1");
+                    context.startActivity(intent);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
