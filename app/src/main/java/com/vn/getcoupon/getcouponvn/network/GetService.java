@@ -1,5 +1,6 @@
 package com.vn.getcoupon.getcouponvn.network;
 
+import com.vn.getcoupon.getcouponvn.model.json_model.JSONCategoryItem;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONStoreItem;
 
 import java.util.List;
@@ -16,5 +17,9 @@ public interface GetService {
     @GET(API.LIST_STORE)
     @Headers({API.HEADERS})
     Call<List<JSONStoreItem>> callJsonListStore();
+
+    @GET(API.CATEGORIES)
+    @Headers({API.HEADERS})
+    Call<List<JSONCategoryItem>> callJsonCategoriesList();
 
 }
