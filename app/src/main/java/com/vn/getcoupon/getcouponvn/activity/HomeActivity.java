@@ -140,6 +140,7 @@ public class HomeActivity extends AppCompatActivity
             viewPager.setAdapter(adapter);
             smartTabLayout.setViewPager(viewPager);
             viewPager.setOffscreenPageLimit(3);
+            viewPager.setCurrentItem(2);
         }
     }
 

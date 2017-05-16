@@ -107,7 +107,7 @@ public class NotificationService extends Service implements OnNetworkChangeRecei
                 .setSmallIcon(R.mipmap.ic_discount)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.logo))
                 .setContentTitle("Getcoupon.vn")
-                .setContentText("Hãy truy cập ứng dụng để nhận Coupons mới nào!!!")
+                .setContentText("Vừa thêm coupon, voucher mới ...")
                 .setVibrate(new long[]{1000, 1000})
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setLights(Color.BLUE, 1000, 3000)
