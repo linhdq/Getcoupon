@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_35sdp"
         android:background="@drawable/custom_edit_text"
-        android:hint="Tìm kiếm ..."
+        android:hint="Tìm thương hiệu, sản phẩm ..."
         android:textSize="@dimen/_12sdp"
         android:padding="@dimen/_5sdp"
         android:maxLines="1"

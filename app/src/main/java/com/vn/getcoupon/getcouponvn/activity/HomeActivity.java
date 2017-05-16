@@ -133,14 +133,13 @@ public class HomeActivity extends AppCompatActivity
         if (adapter == null) {
             adapter = new FragmentPagerItemAdapter(
                     getSupportFragmentManager(), FragmentPagerItems.with(this)
+                    .add(R.string.sale_code, SaleCodeFragment.class)
                     .add(R.string.brand_name, BrandFragment.class)
                     .add(R.string.category, CategoryFragment.class)
-                    .add(R.string.sale_code, SaleCodeFragment.class)
                     .create());
             viewPager.setAdapter(adapter);
             smartTabLayout.setViewPager(viewPager);
             viewPager.setOffscreenPageLimit(3);
-            viewPager.setCurrentItem(2);
         }
     }
 

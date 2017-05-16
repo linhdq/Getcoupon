@@ -69,7 +69,11 @@ public class ListCouponAdapter extends RecyclerView.Adapter<ListCouponAdapter.Vi
                 Glide.with(context).load(model.getLogoUrl()).into(holder.imvLogo);
                 holder.txtTitle.setText(model.getTitle());
                 holder.txtExpireDate.setText("Hạn: " + model.getExpiresDate());
-                holder.txtPercentOk.setText(model.getPersenSuccess() + "% OK");
+                try {
+                    holder.txtPercentOk.setText(Integer.parseInt(model.getPersenSuccess().trim()) + "% OK");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
                 holder.txtContent.setText(model.getContent().replace("\n", "").replace("\r", "").trim());
                 holder.position = position;
             }
