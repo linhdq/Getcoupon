@@ -13,6 +13,7 @@ import com.vn.getcoupon.getcouponvn.database.DBContext;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONCouponItem;
 import com.vn.getcoupon.getcouponvn.network.GetService;
 import com.vn.getcoupon.getcouponvn.network.ServiceFactory;
+import com.vn.getcoupon.getcouponvn.services.NotificationService;
 import com.vn.getcoupon.getcouponvn.utilities.Constant;
 
 import java.util.List;
@@ -26,6 +27,9 @@ public class SplashActivity extends AppCompatActivity {
     private DBContext dbContext;
     private GetService getService;
 
+    // Service
+    private Intent intentService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,11 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         //
         init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         //
         getListCoupon();
     }
@@ -45,6 +54,9 @@ public class SplashActivity extends AppCompatActivity {
         getService = ServiceFactory.getInstance().createService(GetService.class);
         //
         dbContext = DBContext.getInst();
+        // Notification Service
+        intentService = new Intent(this, NotificationService.class);
+        startService(intentService);
     }
 
     private void getListCoupon() {

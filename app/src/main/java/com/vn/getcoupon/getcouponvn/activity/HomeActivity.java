@@ -48,9 +48,6 @@ public class HomeActivity extends AppCompatActivity
     //
     private DBContext dbContext;
 
-    // Service
-    private Intent intentService;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,10 +89,6 @@ public class HomeActivity extends AppCompatActivity
         txtNothing = (TextView) findViewById(R.id.txt_nothing);
         //
         dbContext = DBContext.getInst();
-
-        // Notification Service
-        intentService = new Intent(this, NotificationService.class);
-        startService(intentService);
     }
 
     public void checkHasData(int visible) {
