@@ -1,5 +1,6 @@
 package com.vn.getcoupon.getcouponvn.activity;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -12,9 +13,15 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.vn.getcoupon.getcouponvn.R;
 import com.vn.getcoupon.getcouponvn.adapter.ListCouponAdapter;
 import com.vn.getcoupon.getcouponvn.database.DBContext;
@@ -24,11 +31,19 @@ import com.vn.getcoupon.getcouponvn.utilities.Constant;
 
 import java.util.List;
 
-public class ListCouponsActivity extends AppCompatActivity implements OnItemRecyclerViewClicked {
+public class ListCouponsActivity extends AppCompatActivity implements OnItemRecyclerViewClicked, View.OnClickListener {
     //view
     private RecyclerView recyclerView;
     private TextView txtError;
     private Toast toast;
+    private Dialog dialog;
+    private ImageView imvLogo;
+    private ImageView imvClose;
+    private TextView txtTitle;
+    private TextView txtCode;
+    private RelativeLayout itemCopy;
+    private LinearLayout itemWebsite;
+    private TextView txtNumberUsed;
     //
     private DBContext dbContext;
     private JSONCouponItem model;
@@ -48,6 +63,7 @@ public class ListCouponsActivity extends AppCompatActivity implements OnItemRecy
         //
         init();
         configRecyclerView();
+        addListener();
     }
 
     @Override
@@ -71,6 +87,25 @@ public class ListCouponsActivity extends AppCompatActivity implements OnItemRecy
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         txtError = (TextView) findViewById(R.id.txt_error);
         //
+        dialog = new Dialog(this);
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.setCanceledOnTouchOutside(false);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+        //
+        imvLogo = (ImageView) dialog.findViewById(R.id.imv_logo);
+        imvClose = (ImageView) dialog.findViewById(R.id.imv_close);
+        txtTitle = (TextView) dialog.findViewById(R.id.txt_title);
+        txtCode = (TextView) dialog.findViewById(R.id.txt_code);
+        itemCopy = (RelativeLayout) dialog.findViewById(R.id.item_copy);
+        itemWebsite = (LinearLayout) dialog.findViewById(R.id.item_website);
+        txtNumberUsed = (TextView) dialog.findViewById(R.id.txt_number_used);
+        //
         dbContext = DBContext.getInst();
         //
         storeName = getIntent().getStringExtra(Constant.STORE_NAME);
@@ -79,6 +114,12 @@ public class ListCouponsActivity extends AppCompatActivity implements OnItemRecy
         //show back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(storeName);
+    }
+
+    private void addListener() {
+        imvClose.setOnClickListener(this);
+        itemCopy.setOnClickListener(this);
+        itemWebsite.setOnClickListener(this);
     }
 
     private void showToast(String mess) {
@@ -107,18 +148,49 @@ public class ListCouponsActivity extends AppCompatActivity implements OnItemRecy
         }
     }
 
+    private void fillDataAndShowDialog(JSONCouponItem model) {
+        if (model != null) {
+            Glide.with(this).load(model.getLogoUrl()).into(imvLogo);
+            txtTitle.setText(model.getTitle().trim());
+            txtCode.setText(model.getCode());
+            txtNumberUsed.setText(model.getUsed() + " lượt đã sử dụng.");
+            dialog.show();
+        }
+    }
+
     @Override
     public void onItemRecyclerViewClicked(int position) {
         model = list.get(position);
         if (model.getCouponType().equalsIgnoreCase("code")) {
-            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("Đã copy mã", model.getCode());
-            clipboard.setPrimaryClip(clip);
-            showToast("Đã copy mã!");
+            fillDataAndShowDialog(model);
         } else {
             Intent intentWeb = new Intent(Intent.ACTION_VIEW);
             intentWeb.setData(Uri.parse(model.getDestinationUrl()));
             startActivity(intentWeb);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imv_close:
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                break;
+            case R.id.item_copy:
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Đã copy mã", model.getCode());
+                clipboard.setPrimaryClip(clip);
+                showToast("Đã copy mã!");
+                break;
+            case R.id.item_website:
+                Intent intentWeb = new Intent(Intent.ACTION_VIEW);
+                intentWeb.setData(Uri.parse(model.getDestinationUrl()));
+                startActivity(intentWeb);
+                break;
+            default:
+                break;
         }
     }
 }
