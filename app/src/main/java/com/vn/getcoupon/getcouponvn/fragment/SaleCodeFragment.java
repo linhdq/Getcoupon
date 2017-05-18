@@ -81,14 +81,6 @@ public class SaleCodeFragment extends Fragment implements OnItemRecyclerViewClic
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (list.size() == 0) {
-            getListCoupon();
-        }
-    }
-
     private void init(View view) {
         //view
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
