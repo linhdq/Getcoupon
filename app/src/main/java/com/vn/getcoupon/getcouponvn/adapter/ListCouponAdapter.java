@@ -33,8 +33,9 @@ public class ListCouponAdapter extends RecyclerView.Adapter<ListCouponAdapter.Vi
     private LayoutInflater inflater;
     private JSONCouponItem model;
     private OnItemRecyclerViewClicked listener;
+    private boolean isOpenNext;
 
-    public ListCouponAdapter(List<JSONCouponItem> list, Context context, OnItemRecyclerViewClicked listener) {
+    public ListCouponAdapter(List<JSONCouponItem> list, Context context, OnItemRecyclerViewClicked listener, boolean isOpenNext) {
         if (list != null) {
             this.list = list;
         } else {
@@ -43,6 +44,7 @@ public class ListCouponAdapter extends RecyclerView.Adapter<ListCouponAdapter.Vi
         this.context = context;
         this.listener = listener;
         this.inflater = LayoutInflater.from(context);
+        this.isOpenNext = isOpenNext;
     }
 
     @Override
@@ -118,7 +120,9 @@ public class ListCouponAdapter extends RecyclerView.Adapter<ListCouponAdapter.Vi
             animation = AnimationUtils.loadAnimation(context, R.anim.zoom_out);
             //
             layoutButton.setOnClickListener(this);
-            imvLogo.setOnClickListener(this);
+            if (isOpenNext) {
+                imvLogo.setOnClickListener(this);
+            }
         }
 
         @Override

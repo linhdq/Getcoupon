@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_100sdp"
         android:background="@color/teal_primary"
-        android:id="@+id/txt_title"
+        android:id="@+id/imv_logo"
         android:src="@mipmap/logo_256"
         android:tint="@color/white"
         android:padding="@dimen/_5sdp"
@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_title"
+        android:layout_below="@id/imv_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Website"

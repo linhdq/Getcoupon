@@ -2,20 +2,23 @@ package com.vn.getcoupon.getcouponvn.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.view.View;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
@@ -27,12 +30,11 @@ import com.vn.getcoupon.getcouponvn.fragment.CategoryFragment;
 import com.vn.getcoupon.getcouponvn.fragment.SaleCodeFragment;
 import com.vn.getcoupon.getcouponvn.model.FollowListModel;
 import com.vn.getcoupon.getcouponvn.utilities.Constant;
-import com.vn.getcoupon.getcouponvn.services.NotificationService;
 
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
-        implements View.OnClickListener {
+        implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
     //view
     private RelativeLayout itemInfo;
     private DrawerLayout drawer;
@@ -40,6 +42,9 @@ public class HomeActivity extends AppCompatActivity
     private TextView txtNothing;
     private ViewPager viewPager;
     private SmartTabLayout smartTabLayout;
+    private ImageView imvLogo;
+    private ImageView imvInfo;
+    private ImageView imvFollow;
     //adapter
     public ListItemDrawerAdapter itemDrawerAdapter;
     private FragmentPagerItemAdapter adapter;
@@ -60,6 +65,13 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        //
+        Glide.with(this).load(R.mipmap.logo_256).into(imvLogo);
+        Glide.with(this).load(R.mipmap.ic_follow).into(imvFollow);
+        Glide.with(this).load(R.mipmap.ic_info).into(imvInfo);
+        imvLogo.setColorFilter(this.getResources().getColor(R.color.white));
+        imvFollow.setColorFilter(this.getResources().getColor(R.color.red_primary));
+        imvInfo.setColorFilter(this.getResources().getColor(R.color.red_primary));
         //
         fillDataToDrawerList();
         fillDataToViewPager();
@@ -87,6 +99,9 @@ public class HomeActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         smartTabLayout = (SmartTabLayout) findViewById(R.id.view_pager_tab);
         txtNothing = (TextView) findViewById(R.id.txt_nothing);
+        imvLogo=(ImageView) findViewById(R.id.imv_logo_drawer);
+        imvInfo=(ImageView) findViewById(R.id.imv_icon_info);
+        imvFollow=(ImageView) findViewById(R.id.imv_icon_folow);
         //
         dbContext = DBContext.getInst();
     }

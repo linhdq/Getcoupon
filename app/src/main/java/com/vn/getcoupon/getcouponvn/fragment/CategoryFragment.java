@@ -76,21 +76,21 @@ public class CategoryFragment extends Fragment implements OnItemFollowClicked {
 
     private void initData() {
         if (list.size() == 0) {
-            dbContext.addCategory(CategoryModel.create(51+"", "Hot Coupon", R.mipmap.ic_discount));
-            dbContext.addCategory(CategoryModel.create(38+"", "Giáo dục", R.mipmap.ic_mortarboard));
-            dbContext.addCategory(CategoryModel.create(36+"", "Sức khoẻ - Làm đẹp", R.mipmap.ic_hair_dryer));
-            dbContext.addCategory(CategoryModel.create(35+"", "Sách - Quà tặng", R.mipmap.ic_notebook));
-            dbContext.addCategory(CategoryModel.create(33+"", "Giải trí - Du lịch", R.mipmap.ic_beach));
-            dbContext.addCategory(CategoryModel.create(32+"", "Gia dụng", R.mipmap.ic_tools));
-            dbContext.addCategory(CategoryModel.create(29+"", "Công nghệ", R.mipmap.ic_desktop));
-            dbContext.addCategory(CategoryModel.create(44+"", "Tài chính - Ngân hàng", R.mipmap.ic_money_bag));
-            dbContext.addCategory(CategoryModel.create(45+"", "Ẩm thực", R.mipmap.ic_restaurant));
-            dbContext.addCategory(CategoryModel.create(46+"", "Thể thao", R.mipmap.ic_football));
-            dbContext.addCategory(CategoryModel.create(31+"", "Điện tử - Điện lạnh", R.mipmap.ic_refrigerator));
-            dbContext.addCategory(CategoryModel.create(37+"", "Thời trang", R.mipmap.ic_shirt));
-            dbContext.addCategory(CategoryModel.create(34+"", "Mẹ và bé", R.mipmap.ic_newborn));
-            dbContext.addCategory(CategoryModel.create(106+"", "Văn phòng phẩm", R.mipmap.ic_pencil));
-            dbContext.addCategory(CategoryModel.create(220+"", "Di chuyển - Vận chuyển", R.mipmap.ic_delivery_truck));
+            dbContext.addCategory(CategoryModel.create(51 + "", "Hot Coupon", R.mipmap.ic_discount));
+            dbContext.addCategory(CategoryModel.create(38 + "", "Giáo dục", R.mipmap.ic_mortarboard));
+            dbContext.addCategory(CategoryModel.create(36 + "", "Sức khoẻ - Làm đẹp", R.mipmap.ic_hair_dryer));
+            dbContext.addCategory(CategoryModel.create(35 + "", "Sách - Quà tặng", R.mipmap.ic_notebook));
+            dbContext.addCategory(CategoryModel.create(33 + "", "Giải trí - Du lịch", R.mipmap.ic_beach));
+            dbContext.addCategory(CategoryModel.create(32 + "", "Gia dụng", R.mipmap.ic_tools));
+            dbContext.addCategory(CategoryModel.create(29 + "", "Công nghệ", R.mipmap.ic_desktop));
+            dbContext.addCategory(CategoryModel.create(44 + "", "Tài chính - Ngân hàng", R.mipmap.ic_money_bag));
+            dbContext.addCategory(CategoryModel.create(45 + "", "Ẩm thực", R.mipmap.ic_restaurant));
+            dbContext.addCategory(CategoryModel.create(46 + "", "Thể thao", R.mipmap.ic_football));
+            dbContext.addCategory(CategoryModel.create(31 + "", "Điện tử - Điện lạnh", R.mipmap.ic_refrigerator));
+            dbContext.addCategory(CategoryModel.create(37 + "", "Thời trang", R.mipmap.ic_shirt));
+            dbContext.addCategory(CategoryModel.create(34 + "", "Mẹ và bé", R.mipmap.ic_newborn));
+            dbContext.addCategory(CategoryModel.create(106 + "", "Văn phòng phẩm", R.mipmap.ic_pencil));
+            dbContext.addCategory(CategoryModel.create(220 + "", "Di chuyển - Vận chuyển", R.mipmap.ic_delivery_truck));
             adapter.notifyDataSetChanged();
         }
     }
@@ -122,7 +122,7 @@ public class CategoryFragment extends Fragment implements OnItemFollowClicked {
         }
         adapter.notifyDataSetChanged();
         homeActivity.itemDrawerAdapter.notifyDataSetChanged();
-        if (listFollow.size() == 0) {
+        if (listFollow.size() == 0 && dbContext.getAllFollowItem(2).size() == 0) {
             homeActivity.checkHasData(View.VISIBLE);
         } else {
             homeActivity.checkHasData(View.GONE);

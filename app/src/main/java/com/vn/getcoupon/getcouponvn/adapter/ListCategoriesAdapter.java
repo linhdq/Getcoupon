@@ -68,6 +68,8 @@ public class ListCategoriesAdapter extends RecyclerView.Adapter<ListCategoriesAd
                 holder.position = position;
                 holder.txtName.setText(model.getName());
                 Glide.with(context).load(model.getLogo()).into(holder.imvIcon);
+                Glide.with(context).load(R.mipmap.ic_add).into(holder.imvAdd);
+                holder.imvAdd.setColorFilter(context.getResources().getColor(R.color.white));
                 if (!listFollow.contains(String.valueOf(model.getId()))) {
                     holder.imvAdd.setRotation(0.0f);
                     holder.imvIcon.setColorFilter(context.getResources().getColor(R.color.grey_900));

@@ -24,9 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_90sdp"
             android:background="@color/teal_primary"
-            android:id="@+id/txt_title"
+            android:id="@+id/imv_logo_drawer"
             android:textSize="@dimen/_18sdp"
-            android:src="@mipmap/logo_256"
             android:padding="@dimen/_5sdp"
             android:tint="@color/white"
             />
@@ -36,12 +35,11 @@
             android:paddingLeft="@dimen/_10sdp"
             android:background="@drawable/custom_background_item_grey"
             android:id="@+id/item_follow"
-            android:layout_below="@id/txt_title"
+            android:layout_below="@id/imv_logo_drawer"
             >
             <ImageView
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/ic_follow"
                 android:tint="@color/red_primary"
                 android:padding="@dimen/_5sdp"
                 android:id="@+id/imv_icon_folow"
@@ -69,7 +67,6 @@
             <ImageView
                 android:layout_width="@dimen/_35sdp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/ic_info"
                 android:tint="@color/red_primary"
                 android:padding="@dimen/_5sdp"
                 android:id="@+id/imv_icon_info"

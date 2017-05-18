@@ -55,7 +55,7 @@ public class ListItemDrawerAdapter extends BaseAdapter {
         View view = inflater.inflate(R.layout.item_on_list_follow_drawer, parent, false);
         if (view != null) {
             ImageView imageView = (ImageView) view.findViewById(R.id.imv_icon);
-            TextView txtTitle = (TextView) view.findViewById(R.id.txt_title);
+            TextView txtTitle = (TextView) view.findViewById(R.id.imv_logo);
             if (list.size() > position) {
                 model=list.get(position);
                 if(model!=null) {

@@ -62,6 +62,7 @@ public class ListStoreApdater extends RecyclerView.Adapter<ListStoreApdater.View
             model = list.get(position);
             if (model != null) {
                 Glide.with(context).load(model.getLogoUrl()).into(holder.imvLogo);
+                Glide.with(context).load(R.mipmap.ic_add).into(holder.imvFollow);
                 holder.txtName.setText(model.getName());
                 holder.position = position;
                 if (!listFollow.contains(model.getId())) {

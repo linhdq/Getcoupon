@@ -30,7 +30,6 @@ import com.vn.getcoupon.getcouponvn.adapter.ListCouponAdapter;
 import com.vn.getcoupon.getcouponvn.database.DBContext;
 import com.vn.getcoupon.getcouponvn.intef.OnItemRecyclerViewClicked;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONCouponItem;
-import com.vn.getcoupon.getcouponvn.model.json_model.JSONStoreItem;
 import com.vn.getcoupon.getcouponvn.network.GetService;
 import com.vn.getcoupon.getcouponvn.network.ServiceFactory;
 import com.vn.getcoupon.getcouponvn.utilities.Constant;
@@ -149,7 +148,7 @@ public class SaleCodeFragment extends Fragment implements OnItemRecyclerViewClic
     private void configRecyclerView() {
         list = dbContext.getAllCoupons();
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        adapter = new ListCouponAdapter(list, context, this);
+        adapter = new ListCouponAdapter(list, context, this, true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         Log.d("hello", "configRecyclerView: " + list.size());

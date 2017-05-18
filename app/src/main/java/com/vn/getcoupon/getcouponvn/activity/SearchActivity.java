@@ -116,7 +116,7 @@ public class SearchActivity extends AppCompatActivity implements OnItemRecyclerV
     private void configRecyclerView() {
         list = dbContext.getAllCoupons();
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        adapter = new ListCouponAdapter(list, this, this);
+        adapter = new ListCouponAdapter(list, this, this, true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         if (list.size() == 0) {

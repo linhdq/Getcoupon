@@ -10,7 +10,7 @@
         android:id="@+id/imv_logo"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="match_parent"
-        android:src="@mipmap/lazada" />
+        />
 
     <View
         android:id="@+id/view_"
@@ -32,7 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_add"
             android:tint="@color/teal_primary"
             android:id="@+id/imv_follow"
             />
