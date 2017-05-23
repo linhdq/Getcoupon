@@ -46,8 +46,6 @@ public class NotificationService extends Service implements OnNetworkChangeRecei
     private NetworkBroadcastReceiver networkBroadcastReceiver;
     private IntentFilter intentFilter;
 
-    //
-    private boolean isWaiting;
 
     public NotificationService() {
         Log.d("fuck", "create");
@@ -79,14 +77,12 @@ public class NotificationService extends Service implements OnNetworkChangeRecei
         } else {
             waitingForNetwork();
         }
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY_COMPATIBILITY;
     }
-
 
     private void init() {
         //
         context = this;
-        isWaiting = false;
         sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY, MODE_PRIVATE);
 
         //
@@ -117,12 +113,10 @@ public class NotificationService extends Service implements OnNetworkChangeRecei
 
     @Override
     public void onNetworkChangeReceiver() {
-        if (isWaiting) {
-            Log.d("fuck", "show from waiting network");
-            unregisterReceiver(networkBroadcastReceiver);
-            showNotification();
-            countdownForNotification(checkTimeRemaning(calendar));
-        }
+        Log.d("fuck", "show from waiting network");
+        unregisterReceiver(networkBroadcastReceiver);
+        showNotification();
+        countdownForNotification(checkTimeRemaning(calendar));
     }
 
     private void countdownForNotification(long delay) {
@@ -171,7 +165,6 @@ public class NotificationService extends Service implements OnNetworkChangeRecei
     private void waitingForNetwork() {
         Log.d("fuck", "is waiting for network");
         timer.cancel();
-        isWaiting = true;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_SHOWED, true);
         editor.apply();
@@ -184,7 +177,6 @@ public class NotificationService extends Service implements OnNetworkChangeRecei
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_SHOWED, false);
         editor.apply();
-        isWaiting = false;
         timer.cancel();
     }
 }
