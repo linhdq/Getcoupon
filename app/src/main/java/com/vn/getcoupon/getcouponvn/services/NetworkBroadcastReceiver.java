@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.vn.getcoupon.getcouponvn.intef.OnNetworkChangeReceiver;
 
@@ -27,6 +28,7 @@ public class NetworkBroadcastReceiver extends BroadcastReceiver {
             networkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
             if (networkInfo != null && networkInfo.getDetailedState() == NetworkInfo.DetailedState.CONNECTED) {
                 onNetworkChangeReceiver.onNetworkChangeReceiver();
+                Log.d("fuck", "onReceive");
             }
         }
     }

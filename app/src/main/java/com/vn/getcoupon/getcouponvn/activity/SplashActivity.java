@@ -1,11 +1,10 @@
 package com.vn.getcoupon.getcouponvn.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 import com.vn.getcoupon.getcouponvn.R;
@@ -13,9 +12,10 @@ import com.vn.getcoupon.getcouponvn.database.DBContext;
 import com.vn.getcoupon.getcouponvn.model.json_model.JSONCouponItem;
 import com.vn.getcoupon.getcouponvn.network.GetService;
 import com.vn.getcoupon.getcouponvn.network.ServiceFactory;
-import com.vn.getcoupon.getcouponvn.services.NotificationService;
+import com.vn.getcoupon.getcouponvn.services.NotificationHandle;
 import com.vn.getcoupon.getcouponvn.utilities.Constant;
 
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,8 +27,13 @@ public class SplashActivity extends AppCompatActivity {
     private DBContext dbContext;
     private GetService getService;
 
-    // Service
-    private Intent intentService;
+    // Notification
+    private AlarmManager alarmManager;
+    private Calendar calendar;
+    private Intent intent;
+    private PendingIntent pendingIntent;
+    private static final long TIME_OF_A_DAY = 1000 * 60 * 60 * 24;
+//    private static final long TIME_OF_A_DAY = 1000 * 60;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +60,7 @@ public class SplashActivity extends AppCompatActivity {
         //
         dbContext = DBContext.getInst();
         // Notification Service
-        intentService = new Intent(this, NotificationService.class);
-        startService(intentService);
+        notificationConfig();
     }
 
     private void getListCoupon() {
@@ -83,5 +87,16 @@ public class SplashActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    private void notificationConfig() {
+        calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 13);
+        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.SECOND, 0);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        intent = new Intent(this, NotificationHandle.class);
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), TIME_OF_A_DAY, pendingIntent);
     }
 }

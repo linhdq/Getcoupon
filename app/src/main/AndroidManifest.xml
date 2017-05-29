@@ -43,11 +43,18 @@
                 android:value=".activity.HomeActivity" />
         </activity>
 
-        <service
-            android:name=".services.NotificationService"
+        <receiver android:name=".services.NotificationHandle"
+            android:process=":remote"
             android:enabled="true"
-            android:exported="true"/>
-        <activity android:name=".activity.SearchActivity"></activity>
+            android:exported="false"/>
+
+        <receiver android:name=".services.NetworkBroadcastReceiver"
+            android:process=":remote"
+            android:enabled="true"
+            android:exported="false"/>
+
+
+        <activity android:name=".activity.SearchActivity"/>
     </application>
 
 </manifest>
