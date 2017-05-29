@@ -91,7 +91,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void notificationConfig() {
         calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 22);
+        calendar.set(Calendar.HOUR_OF_DAY, 13);
         calendar.set(Calendar.MINUTE, 30);
         calendar.set(Calendar.SECOND, 0);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
